@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LGBT community</title>
+    <!-- Load Papyrus-style font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            font-family: 'IM Fell English', serif;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .background-image {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 75vh;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1, p {
+            font-size: 3em;
+            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            animation: rainbowFlow 15s linear infinite;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        @keyframes rainbowFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            user-select: none;
+            z-index: 3;
+            overflow: hidden;
+        }
+
+        .drop {
+            position: absolute;
+            top: -100px;
+            pointer-events: none;
+            user-select: none;
+            animation-name: fall-spin;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes fall-spin {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 4;
+            font-size: 2em;
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .floating-wrapper {
+            position: fixed;
+            width: 60px;
+            height: 80px;
+            z-index: 999;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .floating-wrapper img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .floating-wrapper span {
+            display: block;
+            color: white;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" src="mushroom stew.mp3" loop></audio>
+
+    <a href="index.html" class="back-button">←</a>
+
+    <!-- Floating YouTube button -->
+    <a href="https://www.youtube.com/@Blockyperp20203" target="_blank">
+        <div class="floating-wrapper" id="floatingChick">
+            <img src="youtube.png" alt="YouTube">
+            <span>Click me for my channel!</span>
+        </div>
+    </a>
+
+    <img src="standing2.png" alt="Background Figure" class="background-image">
+    <div class="rain" id="rain"></div>
+    <div class="content">
+        <h1>The wankbank is over! CLCIK ANYWHER</h1>
+        <p>It's now the LGBT comunity!</p>
+        <p>Rule 1: we suck cox 🐔🍆💦 ( a LOT)</p>
+        <p>Rule 2 we hate "wankers" (especially wankthony and redskull!)</p>
+        <p>Made in Japan where it is legal!🗾🍙</p>
+    </div>
+
+    <script>
+        const rainContainer = document.getElementById('rain');
+
+        function createDrop() {
+            const drop = document.createElement('img');
+            drop.src = 'chick.png';
+            drop.className = 'drop';
+
+            const size = Math.random() * 30 + 20;
+            drop.style.width = `${size}px`;
+            drop.style.left = `${Math.random() * window.innerWidth}px`;
+            const duration = Math.random() * 5 + 5;
+            drop.style.animationDuration = `${duration}s`;
+
+            rainContainer.appendChild(drop);
+
+            setTimeout(() => {
+                rainContainer.removeChild(drop);
+            }, duration * 1000 + 1000);
+        }
+
+        setInterval(createDrop, 200);
+
+        function enableAudio() {
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(err => {
+                console.warn("Audio playback failed:", err);
+            });
+            document.removeEventListener('click', enableAudio);
+        }
+
+        document.addEventListener('click', enableAudio);
+
+        // Floating YouTube button bounce
+        const floating = document.getElementById('floatingChick');
+        let x = Math.random() * (window.innerWidth - 60);
+        let y = Math.random() * (window.innerHeight - 80);
+        let dx = 2;
+        let dy = 2;
+
+        function animateFloating() {
+            x += dx;
+            y += dy;
+
+            if (x + 60 > window.innerWidth || x < 0) dx *= -1;
+            if (y + 80 > window.innerHeight || y < 0) dy *= -1;
+
+            floating.style.left = x + 'px';
+            floating.style.top = y + 'px';
+
+            requestAnimationFrame(animateFloating);
+        }
+
+        animateFloating();
+    </script>
+</body>
+</html>
