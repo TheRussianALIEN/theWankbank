@@ -1,1 +1,1 @@
-SEXY TIME IS BACK
+It is over!
